@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الاستعلام عن اسم المستخدم وكلمة السر للدخول لمنصة كريو  (Qureo) | مدرسة الحاج السيد محمد شيحة الثانوية بأشمون الرمان</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #334155;
+        }
+        .main-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 550px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card-header {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .card-header i.school-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: #60a5fa;
+        }
+        .card-header h1 {
+            font-size: 20px;
+            font-weight: 900;
+            margin-bottom: 5px;
+        }
+        .card-header p {
+            font-size: 13px;
+            color: #93c5fd;
+        }
+        .card-body {
+            padding: 30px;
+        }
+        .search-group {
+            position: relative;
+            margin-bottom: 15px;
+        }
+        .search-group i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 18px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 15px 45px 15px 20px;
+            font-size: 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            outline: none;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+            color: #0f172a;
+            font-weight: 600;
+            text-align: center;
+        }
+        input[type="text"]:focus {
+            border-color: #3b82f6;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+        }
+        .search-btn {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        .search-btn:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+        }
+        .hint-text {
+            font-size: 12px;
+            color: #64748b;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .result-box {
+            margin-top: 20px;
+            background: #f1f5f9;
+            border-radius: 14px;
+            padding: 20px;
+            border: 2px dashed #cbd5e1;
+            display: none;
+            animation: slideUp 0.5s ease;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+        }
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .result-label {
+            font-weight: 700;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .result-value {
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .code-tag, .pass-tag {
+            background: #e2e8f0;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 15px;
+            color: #1e3a8a;
+            direction: ltr;
+        }
+        .pass-tag {
+            color: #047857;
+            background: #d1fae5;
+        }
+        .name-tag {
+            color: #7c2d12;
+            background: #ffedd5;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .platform-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #059669, #047857);
+            color: white;
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 12px;
+            margin-top: 20px;
+            font-weight: 700;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+        }
+        .platform-link:hover {
+            background: linear-gradient(135deg, #047857, #065f46);
+            transform: translateY(-2px);
+        }
+        .error-box {
+            margin-top: 20px;
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 700;
+            border: 1px solid #fca5a5;
+            display: none;
+        }
+        .footer-note {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 12px;
+            color: #64748b;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+            line-height: 1.6;
+        }
+        .footer-note span {
+            color: #1e3a8a;
+            font-weight: bold;
+        }
+    </style> 
+</head>
+<body>
+
+<div class="main-card">
+    <div class="card-header">
+        <i class="fa-solid fa-laptop-code school-icon"></i>
+        <h1>مدرسة الحاج السيد محمد شيحة الثانوية بأشمون الرمان </h1>
+        <p>   استعلام عن حسابات منصة كريو  (Qureo) <br> مادة البرمجة والذكاء الاصطناعي للصف الاول الثانوي -2026-2027 </p>
+    </div>
+
+    <div class="card-body">
+        <div class="search-group">
+            <i class="fa-solid fa-search"></i>
+            <input type="text" id="searchInput" placeholder="أدخل كود الطالب أو جزء من اسمك..." autocomplete="off">
+        </div>
+        <div class="hint-text">يمكنك البحث باستخدام كود الطالب (9 أرقام) أو كتابة اسمك الثلاثي/الرباعي</div>
+
+        <button class="search-btn" onclick="findStudent()">
+            <i class="fa-solid fa-arrow-right-to-bracket"></i> استعلام عن البيانات
+        </button>
+
+        <div id="errorBox" class="error-box">
+            <i class="fa-solid fa-circle-exclamation"></i> عذراً، لم يتم العثور على طالب بهذا الكود أو الاسم. تأكد من صحة المدخلات.
+        </div>
+
+        <div id="resultBox" class="result-box">
+            <div class="result-item">
+                <span class="result-label"><i class="fa-solid fa-school"></i> المدرسة:</span>
+                <span class="result-value">مدرسة الحاج السيد محمد شيحة الثانوية</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label"><i class="fa-solid fa-user-graduate"></i> اسم الطالب:</span>
+                <span class="result-value name-tag" id="resName"></span>
+            </div>
+            <div class="result-item">
+                <span class="result-label"><i class="fa-solid fa-user"></i> اسم المستخدم (الكود):</span>
+                <span class="result-value code-tag" id="resCode"></span>
+            </div>
+            <div class="result-item">
+                <span class="result-label"><i class="fa-solid fa-key"></i> كلمة المرور:</span>
+                <span class="result-value pass-tag" id="resPass"></span>
+            </div>
+
+            <a href="https://me-portal.qureo.education" target="_blank" class="platform-link">
+                <i class="fa-solid fa-globe"></i> الدخول إلى منصة كريو (Qureo)
+            </a>
+                        <div class="hint-text">ملحوظة :  بعد الضغط على رابط المنصة  اضغط على انتقل إلى تسجيل الدخول للتعلم / Go To Leaning Loginقم بنسخ الكود ولصقه في المربع أسفل Login ID  ثم نسخ كلمة السر ولصقها أسفل PASSWOED </div>
+
+        </div>
+
+        <div class="footer-note">
+            تصميم وإشراف: <span>أ/ عمرو احمد</span> (الهندسه)<br>
+            للاستفسار والدعم الفني: <span>01001207608</span><br>
+                                  موجه البرمجة والذكاء الاصطناعي : <span>أ. أحمد محمد إبراهيم </span><br>
+                                  موجة أول البرمجة والذكاء الاصطناعي : <span>أ. حامد محمد حامد</span><br>
+                    مدير المدرسة : <span>د. هاني رمضان</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    const studentsDatabase = [{"code": "475977357", "name": "ابراهيم صابر احمد صابر ابراهيم", "pass": "Yx4By_u_"}, {"code": "475086458", "name": "ابراهيم محمد ابراهيم عبد الشافي محمد", "pass": "AQs8Rh?4"}, {"code": "475539813", "name": "احمد اشرف محمد عبد العال المتولى", "pass": "Uy??Qf8B"}, {"code": "481228338", "name": "احمد السيد السيد ابراهيم على", "pass": "MV3Ye!ze"}, {"code": "468202782", "name": "احمد السيد سعد محمود جمعه", "pass": "m2XG2x?E"}, {"code": "474987140", "name": "احمد السيد عبد الغنى على عبد الغنى", "pass": "7Bj!HM8x"}, {"code": "475266451", "name": "أحمد المحمدي عبد الرحمن عبد العزيز عبد الرحمن", "pass": "_cXwge3Y"}, {"code": "473813354", "name": "احمد حسام سعد محمد عرفات", "pass": "84PS?dVZ"}, {"code": "481436287", "name": "احمد حسام عزت راشد محمد", "pass": "__zuA6WV"}, {"code": "477835122", "name": "احمد خالد رضوان محمود صقر", "pass": "3LxCJH!?"}, {"code": "471948887", "name": "احمد خالد فوزى مصطفى السيد شعيب", "pass": "5Wgq58?W"}, {"code": "474988443", "name": "احمد رامي عزمی عوض فرحات", "pass": "Z?pXJ4ec"}, {"code": "474988412", "name": "احمد سامح فوزی ابو الفتوح السيد شعيب", "pass": "9juyEL!D"}, {"code": "471949855", "name": "احمد سامح محمد سلیمان حماد", "pass": "2_2_KJqT"}, {"code": "475977534", "name": "أحمد سعد احمد عوض احمد مندور", "pass": "nRnKf?A8"}, {"code": "475977128", "name": "احمد طارق عبد العظيم محمد احمد احمد", "pass": "!v5XRaqd"}, {"code": "473586843", "name": "احمد عادل احمد یسن خفاجی", "pass": "?K_Av2nw"}, {"code": "474988504", "name": "احمد عبد الحكيم على احمد عبد العال", "pass": "r5a8_?SV"}, {"code": "473808798", "name": "احمد عبد الرحمن احمد عبد الرحمن السيد", "pass": "evY_Ld6?"}, {"code": "475318773", "name": "احمد عمرو محمد محمد محمد شمس", "pass": "w8?atRNt"}, {"code": "471949442", "name": "احمد فهمى عبد الرحمن محمد سلیمان", "pass": "W6ez3E_8"}, {"code": "471948691", "name": "أحمد محسن عيد السعيد محمد", "pass": "4?AaYG9?"}, {"code": "470266314", "name": "احمد محمد ابراهيم محمود عز الدين", "pass": "g3MC_5Kj"}, {"code": "474988293", "name": "احمد محمد السيد عبده عبد العال", "pass": "BGSq6N?Z"}, {"code": "469405917", "name": "أحمد محمد المتولي عبد العال محمد", "pass": "q6QM_VCz"}, {"code": "475368388", "name": "أحمد محمد جمعه الشربيني جمعه", "pass": "a3d_F?zR"}, {"code": "473586760", "name": "احمد محمد رمضان عبده بدر عز الدين", "pass": "6eEw_yG8"}, {"code": "471948846", "name": "احمد محمد سالم محمد سالم حجازی", "pass": "HF3rfNg!"}, {"code": "471948327", "name": "احمد محمد صلاح سليمان السيد", "pass": "Mth_N4FP"}, {"code": "471949583", "name": "احمد محمد عبد العظيم محمود عبد المادي", "pass": "!6zPDy?T"}, {"code": "475074691", "name": "احمد محمد عبد المعطى عبد الفتاح احمد", "pass": "sfm6BSp!"}, {"code": "470266298", "name": "احمد محمد على عطيه عز الدين", "pass": "pHvvt!6b"}, {"code": "481437023", "name": "احمد محمد فاضل محمد دراز", "pass": "f_ApYq25"}, {"code": "469416616", "name": "احمد محمد فوزی عثمان موسی", "pass": "uK9C5wY_"}, {"code": "464622808", "name": "احمد محمد مصباح محمد سليمان", "pass": "5XHqBKz!"}, {"code": "469965354", "name": "احمد مصطفى ابراهيم ابراهيم محمد", "pass": "G4_ZwWP?"}, {"code": "486093862", "name": "أحمد ممدوح عبد البديع ابراهيم مصطفى", "pass": "CSHub!e4"}, {"code": "475086946", "name": "احمد هانی رشدی احمد عبد الحميد", "pass": "_my5rYw_"}, {"code": "469405956", "name": "احمد وليد عبد القوى رمضان محمد", "pass": "NQwv29N!"}, {"code": "469965305", "name": "احمد ياسر حسن ابو الغيط محمد شلبي", "pass": "p_VwN!8J"}, {"code": "470340018", "name": "احمد پس ابراهيم العزب على", "pass": "cCE8c?yK"}, {"code": "475353748", "name": "آدم احمد السيد ابو المعاطى احمد", "pass": "Z8p!bdX!"}, {"code": "471948182", "name": "أدم أحمد رمضان عبده يوسف اسماعيل", "pass": "Wr_!4XtR"}, {"code": "475977932", "name": "آدم حماده ابو الرياط محمد جمعه", "pass": "_zP?C5jH"}, {"code": "475074727", "name": "ادم رمضان عبد العظيم محمد على", "pass": "y7nR?VJ!"}, {"code": "470267567", "name": "ادم عماد عادل عبد الغفار عبد القادر", "pass": "b7T!2eGZ"}, {"code": "474988664", "name": "ادم عماد عادل محمود عبد العزيز", "pass": "8HFg2j_s"}, {"code": "473809049", "name": "ادم محمد فاضل حسين ابراهيم", "pass": "_GfB6RyW"}, {"code": "477788999", "name": "ادم ياسر محمد فضل احمد عبد المولى", "pass": "_d!J6nPX"}, {"code": "469416062", "name": "ادهم حمدى العوضى عبد الدايم محمد", "pass": "erD?3fPd"}, {"code": "474988695", "name": "ادهم شعبان سلیمان محمد احمد", "pass": "6XY_TqAf"}, {"code": "475367141", "name": "أدهم صبرى حامد عبد المجيد الموجى", "pass": "eL68c5?X"}, {"code": "474988640", "name": "ادهم محمد فوزی محمد سلیمان", "pass": "28Jdb!M?"}, {"code": "475032741", "name": "اسامه عصام محمد محمد بدوی رزق", "pass": "EZGE5y!D"}, {"code": "475131541", "name": "اسراء أيمن عادل البكرى عطيه", "pass": "r_PJeFC3"}, {"code": "470266357", "name": "اسلام عبد العليم عبد العليم محمد عطيه", "pass": "URJ9?DqH"}, {"code": "470266374", "name": "اسلام محمد يسرى محمد عبد الرازق يوسف", "pass": "fk_5wXdT"}, {"code": "474974974", "name": "اسما السيد محمود عبد الرازق محمد شعبان", "pass": "B_Q5Y7xd"}, {"code": "470284311", "name": "أسماء أحمد عبد المنعم محمد خاطر", "pass": "j2qarR3_"}, {"code": "475076421", "name": "اسماء طارق محمد زهران المندوه", "pass": "eyTS6G?K"}, {"code": "477789491", "name": "اسماء محمد محمود صقر ابراهيم", "pass": "3pUn8K?t"}, {"code": "470284318", "name": "اسماء مصباح عبد العزيز سليمان عوض", "pass": "!fEB69Vk"}, {"code": "475368457", "name": "اسماعيل السيد اسماعيل على عبد المطلب", "pass": "v7Ns5gj_"}, {"code": "475319009", "name": "آسیل خالد محمد عز الدين مصطفى", "pass": "qLWhWM!7"}, {"code": "475353132", "name": "اسیل محمود محمد السعيد محمد", "pass": "4_!z6Mss"}, {"code": "473870120", "name": "اشرف محمد عصمت عبد العليم محمد عطيه", "pass": "_qssJv84"}, {"code": "475089770", "name": "أصاله ثروت اسماعيل عبد الرحمن هاشم", "pass": "G?zT5JUt"}, {"code": "475568276", "name": "آلاء احمد محمد فرحات الشربيني", "pass": "?!Kb956T"}, {"code": "475353151", "name": "السيد احمد سعد محمود جمعه", "pass": "9?vSKcRz"}, {"code": "475978208", "name": "السيد عبد السلام السيد عبد السلام السيد", "pass": "Fc5mY_2d"}, {"code": "471948721", "name": "السيد وليد السيد سليمان حماد", "pass": "ateUa8p_"}, {"code": "474963001", "name": "الشيماء السيد ابراهيم حسنين ابراهيم", "pass": "8KWWy_6d"}, {"code": "477798378", "name": "الشيماء محمد عزت عبد الغفار محمد يوسف", "pass": "P?JUS2mr"}, {"code": "469416359", "name": "امال علاء حلمى عبد العظيم عبده", "pass": "P_Axct6X"}, {"code": "474962765", "name": "امال مصطفى على احمد مصطفی", "pass": "j!kPKMF9"}, {"code": "475368407", "name": "امجد محمود محمد عبد الرازق محمد", "pass": "3Zj_n6Xa"}, {"code": "471953912", "name": "امل السيد فتحى عبده على", "pass": "f!Nz9n8K"}, {"code": "474962840", "name": "امل مجدى السيد محمد محمود", "pass": "KM?2VFGc"}, {"code": "471949907", "name": "امیر احمد محمد احمد عبد العال", "pass": "wG?gXG38"}, {"code": "475978298", "name": "امیر محمد محمد دياب غانم", "pass": "fgjR7PF?"}, {"code": "474962934", "name": "امیره طارق محمود عبد الحميد السيد", "pass": "E6dCt4y?"}, {"code": "475974518", "name": "اميره عید محمد ابراهيم الدفار", "pass": "uW52vF_G"}, {"code": "481438819", "name": "انجی ابراهیم فاضل ابراهيم جادیوسف", "pass": "Ec3M!dEU"}, {"code": "475319334", "name": "آیات احمد عطيه محمد عطيه", "pass": "d?cZK3ej"}, {"code": "475974444", "name": "ايات محمود علی محمد برهام", "pass": "Mt!fdH4!"}, {"code": "475092390", "name": "اياد احمد شفيق محمد المرسى", "pass": "2VJGMp?w"}, {"code": "473813133", "name": "ایاد احمد محمد امین محمد", "pass": "K33t!cX8"}, {"code": "498453362", "name": "اياد راشد عبده محمد عبد الرازق", "pass": "DK_y388G"}, {"code": "470298320", "name": "ایاد سامح عبده محمد سليمان يوسف", "pass": "5?2sdAk_"}, {"code": "510894499", "name": "ایاد محمد جمال صالح", "pass": "jNx?2_jU"}, {"code": "475566770", "name": "ایمان احمد عادل البكرى عطيه عزالدين", "pass": "5_9VpZXU"}, {"code": "475974378", "name": "ایمان حماده جمعه على بدوى", "pass": "?YRXg6tM"}, {"code": "469405821", "name": "ایمان خالد حامد الباز السيد", "pass": "G52!szSa"}, {"code": "478369304", "name": "ایمان خالد عادل محمد عبد الفتاح", "pass": "7gr9Shr!"}, {"code": "475353243", "name": "ایمان محمود ابراهيم عبد العال ابراهيم", "pass": "E?4CZx_S"}, {"code": "475093626", "name": "ایناس محمد فوزي محمد عبد المجيد", "pass": "2wn6UP!b"}, {"code": "470284298", "name": "ايه احمد محمد محمد مکرم", "pass": "?W6cnnEs"}, {"code": "473811899", "name": "ايه السعيد محمد محمد ابو الوفا", "pass": "Nr_NP9SG"}, {"code": "475265922", "name": "آيه عبد الرحمن محمد نور الدين عبد الرحمن", "pass": "3f5PW?7e"}, {"code": "475560207", "name": "آيه وليد عبد الله على محمود", "pass": "y6TaTtd_"}, {"code": "474949737", "name": "أيه يوسف محمد یوسف محمد", "pass": "PxZ_4AGt"}, {"code": "469965524", "name": "بسمله على محسن على محمد العسكري", "pass": "?gZvGNQ6"}, {"code": "470284321", "name": "بسمله محمد احمد جمعه المتولى", "pass": "cx63XZ?8"}, {"code": "473812619", "name": "بسمله محمد رجب محمود محمد", "pass": "26z!F8K6"}, {"code": "470284323", "name": "بسمله نصر فؤاد محمد محمود", "pass": "Dx_rq7u3"}, {"code": "474963124", "name": "بسمله هيبت اسماعيل عبد الباقي رزق", "pass": "qZ2qx3?_"}, {"code": "475974717", "name": "بسنت مجدى عبد الجواد محمود يوسف", "pass": "T9!Gv8BX"}, {"code": "470284327", "name": "بسنت نصر فؤاد محمد محمود", "pass": "p_Sz8Ymc"}, {"code": "482165145", "name": "تقی محمد فوزي محمد عبده", "pass": "8F_s3MLt"}, {"code": "474987170", "name": "جمال محمد جمال رمضان عبد العال", "pass": "jp8X?jLU"}, {"code": "471954081", "name": "جنا نبيل جمعه عبد الغنى قنديل", "pass": "vGcJeQ?9"}, {"code": "474963413", "name": "جنه عمر محمد سليمان عبده", "pass": "?7WVkyS?"}, {"code": "469405755", "name": "جنى ابراهيم حسن احمد محمد حسن العسكري", "pass": "C3wW_gcS"}, {"code": "475131344", "name": "جنى السيد عادل السيد عبد السلام سليمان", "pass": "3K_345ud"}, {"code": "474891175", "name": "جنی امیر نصر احمد محمد", "pass": "3xA6_qHg"}, {"code": "473812565", "name": "جنى عبد الغفار محمود ابراهيم محمد", "pass": "qsGMJ?m6"}, {"code": "475088538", "name": "جنى عبدالله السيد صلاح محمد", "pass": "?L7smfWW"}, {"code": "474963289", "name": "جنى علاء مصباح ابو الفتوح السيد", "pass": "ZcpV5?3B"}, {"code": "471951249", "name": "جنى عماد الدين الفرغلى حسن المرسى", "pass": "V6teV!pK"}, {"code": "474949998", "name": "جنی فایز جاد السيد سعيد", "pass": "9rT?6SFz"}, {"code": "474963361", "name": "جنی محمد جاد احمد الرومي", "pass": "jU2PSj?c"}, {"code": "471952542", "name": "جنی محمد حامد محمود علی", "pass": "u5b?bKEZ"}, {"code": "481698096", "name": "جنی محمود مکرم ابراهيم اسماعيل", "pass": "hF_D_Z4h"}, {"code": "475088900", "name": "جنی هانی محمد فرحات الشربيني", "pass": "ETTZtK?8"}, {"code": "477798439", "name": "جودی احمد عطا الله الشربيني السواح", "pass": "M9k8Mn?7"}, {"code": "475367345", "name": "جومانه محمد جمال المنسي ابراهيم", "pass": "TH_d!B3k"}, {"code": "471952682", "name": "حبيبه أيمن محمد محمود محمد احمد", "pass": "M!K4Jajr"}, {"code": "475076440", "name": "حبيبه خالد محمد محمد عبد المطلب", "pass": "g9eLdC_X"}, {"code": "473812582", "name": "حبيبه عوض عبد القادر عوض احمد", "pass": "q8?KQBWE"}, {"code": "475265610", "name": "حبيبه محمد عبد البديع ابراهيم مصطفى", "pass": "5_ZyvRtD"}, {"code": "475089382", "name": "حبيبه نصر محى الدين على محمود", "pass": "AVs2p_Jm"}, {"code": "471949823", "name": "حسن مصطفى جمعة مصطفى قنديل", "pass": "u!wsDqQ3"}, {"code": "494138615", "name": "حسناء نصر الدين محمود عز الدين محمود", "pass": "4rC_dh8T"}, {"code": "473808959", "name": "حلمی محمود حلمى عبد العظيم عبده", "pass": "X2S?_tHm"}, {"code": "471949403", "name": "حمدى السيد يسن عبد الرازق محمد", "pass": "dgaBT!84"}, {"code": "473586539", "name": "حمدی محمود محمد الشحات عبد المقصود", "pass": "?QMGwYJ2"}, {"code": "470266572", "name": "حمدی محمود محمد عبد الحكيم المرسى", "pass": "YCKhZ?f6"}, {"code": "475089072", "name": "حنان الشربينى زكى عبد العزيز عبد الواحد", "pass": "KG3mN_tB"}, {"code": "475353071", "name": "حنين السيد محمد السعيد محمد", "pass": "Rg!3Lwpq"}, {"code": "471953057", "name": "حنين جمال احمد ابراهيم حسانين ابراهيم", "pass": "_3mG9KZE"}, {"code": "469415917", "name": "حنين شعبان سعد محمود ابو الوفا", "pass": "?c5XCx7e"}, {"code": "475265702", "name": "حنين عبده عوض عبد السلام احمد عرابي", "pass": "Se2B_sj_"}, {"code": "474906173", "name": "حنين وليد محمد محمد مصطفى", "pass": "?ugtS3TL"}, {"code": "469965266", "name": "خالد السيد محمد جاد محمد", "pass": "_vzw4QSM"}, {"code": "471949019", "name": "خالد فایز جمعه حسنین محمد", "pass": "P5!2kD!r"}, {"code": "471948972", "name": "خالد محمد عبد الرحمن محمد سليمان", "pass": "nzdGC!H8"}, {"code": "474963508", "name": "خلود خالد محمد احمد ابو العنين", "pass": "4as!J7j_"}, {"code": "475368227", "name": "دعاء حازم محمد السيد عبده", "pass": "Gs5uSRJ?"}, {"code": "471952644", "name": "دعاء علاء الدين السيد المتولى الدسوقى", "pass": "L7bL?MNA"}, {"code": "475088660", "name": "دنیا خالد ابراهيم فرج يوسف", "pass": "?befxY4d"}, {"code": "474853430", "name": "دنیا محمد محمود محمد يوسف", "pass": "!7XN5cWR"}, {"code": "487583397", "name": "رانا محمد مصباح جاد سرايا عز الدين", "pass": "69e?KRUV"}, {"code": "471955434", "name": "رحمة محمد فتحى محمد سلیمان", "pass": "!2SHNuhu"}, {"code": "475458731", "name": "رحمه اسماعيل تيسير عبد السميع محمد", "pass": "hCRn2NF?"}, {"code": "475362146", "name": "رحمه السيد السيد محمد السيد", "pass": "aPY_J9u4"}, {"code": "473378746", "name": "رحمه فاروق محمد احمد محمد", "pass": "?EzXwm7C"}, {"code": "473465685", "name": "رحمه محمد ابو الفتوح المتولى احمد العجمي", "pass": "VXmmY?U3"}, {"code": "474853349", "name": "رحمه محمد احمد محمد محمد عريضه", "pass": "4p3A?KEY"}, {"code": "475075999", "name": "رحمه محمد رجب رمضان عبد المقصود", "pass": "mq?PW66E"}, {"code": "475089871", "name": "رزان السيد احمد السيد سالم", "pass": "Em?Q9Ube"}, {"code": "474965440", "name": "رفيده محمد عادل محمد محمد", "pass": "?mbMRm8B"}, {"code": "475975677", "name": "رقیه حمدى سعد عوض احمد", "pass": "9?Q8Ax3k"}, {"code": "473812698", "name": "رقيه يحيى عز الدين السيد محمد", "pass": "p?TryJh5"}, {"code": "475120110", "name": "رمضان محمد رمضان سليمان الهجرسي", "pass": "_e94UtUc"}, {"code": "475458706", "name": "رنا حماده زكريا عطيه محمود", "pass": "Hu26t?YU"}, {"code": "471952867", "name": "رنا طارق مصطفى المتولى السيد", "pass": "yYV_u6DT"}, {"code": "478069923", "name": "رهف کرم محمد حسن محمد", "pass": "E!r2SJAu"}, {"code": "471955387", "name": "روان ایمن محمد حامد حامد", "pass": "p6aSU4!D"}, {"code": "468848147", "name": "روان شعراوی جمعه عبد العال محمد", "pass": "DgbPBP!9"}, {"code": "475368278", "name": "روان فتحى فتحى محمد العدل الغريب", "pass": "SN_Fmt2x"}, {"code": "474963679", "name": "رودينا عيد عبد الودود حموده عبد العال", "pass": "y_MJ_ZP3"}, {"code": "474890486", "name": "روضة شريف عبد العزيز محمد السيد", "pass": "q!VN2fX!"}, {"code": "471953583", "name": "روضة محمد السيد محمد سالم", "pass": "rzr2B!Uc"}, {"code": "471953774", "name": "روضة محمد عبده محمد السيد", "pass": "5Ernm_?X"}, {"code": "469965443", "name": "روضه محمد العجمى سعد احمد العجمي", "pass": "kzGp!2CR"}, {"code": "471951347", "name": "رويدا محمد رمضان محمد الطنطاوى", "pass": "K!M8VjrP"}, {"code": "469415963", "name": "ريتاج محمد عبد الرحمن على السيد يوسف", "pass": "Tx_7An_m"}, {"code": "481437969", "name": "ريم أدرى احمد حسن السيد العشماوى", "pass": "?2yrt3Gd"}, {"code": "475076130", "name": "ريم اشرف السعيد فكرى عبد الخالق", "pass": "8QzpS?3B"}, {"code": "460158574", "name": "ريم محمد عبده حامد بدران", "pass": "SNj9S?Ck"}, {"code": "470299383", "name": "ريم محمود عبد العزيز عبد المحسن المندوه", "pass": "8AS!95j!"}, {"code": "471955260", "name": "ريماس محمد صلاح محمود عباس", "pass": "9K!r?cjB"}, {"code": "473811863", "name": "ريناد احمد محمد كامل معوض", "pass": "T?kS?8v!"}, {"code": "471949157", "name": "زكريا محمد زكريا احمد عبد الحميد", "pass": "JDc!4Efx"}, {"code": "474987193", "name": "زكريا محمد زكريا محمود الشحات", "pass": "Mb64s?eU"}, {"code": "474987239", "name": "زياد على توفيق عبد الغفار على", "pass": "vzy?J8YC"}, {"code": "468847961", "name": "زیاد محمد عبد الرحيم حسين عبد الرحيم", "pass": "2Mnt!QHV"}, {"code": "475074579", "name": "زیاد مدحت جلبي عبد الحميد جلبي", "pass": "!Ax5KRP3"}, {"code": "474907801", "name": "زیاد ممدوح رمضان جمعه على عزالدين", "pass": "jNqf9Zu?"}, {"code": "469416562", "name": "زیدان محمد عبد القادر سليمان صبح", "pass": "H?ps8B9X"}, {"code": "470284332", "name": "زينب السيد جاد البكرى عطيه", "pass": "U3rb?uc9"}, {"code": "473378298", "name": "زينب عبد الهادي محمد عبد الهادي الوصيف", "pass": "3X!U6qRx"}, {"code": "471953212", "name": "سارة ابراهيم محمد محمد عيد احمد", "pass": "9NzgEN!U"}, {"code": "471951300", "name": "سارة عمرو محمد عبده عرفات", "pass": "37Pd?!6x"}, {"code": "475088956", "name": "ساره احمد عادل السيد سالم", "pass": "g5Wb_5yC"}, {"code": "471953161", "name": "ساره محمود عبد الغنى محمود محمد الديني", "pass": "4FsN!qd6"}, {"code": "469416032", "name": "سالم احمد عبد العاطى عز الدين السيد", "pass": "3tJ6M!us"}, {"code": "475573866", "name": "سامح هشام رجب السيد يوسف", "pass": "RZ!EvH6M"}, {"code": "475089004", "name": "سعاد اسامه ممدوح شکر محمد", "pass": "Z?Hvz6C6"}, {"code": "481436860", "name": "سعد رمضان عبد القوى رمضان محمد", "pass": "?55FW?zf"}, {"code": "475975296", "name": "سلمی احمد احمد صابر ابراهيم", "pass": "d_4tWjx2"}, {"code": "468848186", "name": "سلمى السعيد أحمد محمد يوسف", "pass": "wUyp!K34"}, {"code": "471953308", "name": "سلمی جهاد محمد محمد عطوه", "pass": "gEX_6vwn"}, {"code": "474964155", "name": "سلمى عبد الفتاح محمد محمود سليمان", "pass": "CxQBMn!8"}, {"code": "475130186", "name": "سلمى عماد شعبان أحمد على", "pass": "9S?NLASc"}, {"code": "474964255", "name": "سلمى عمرو السيد محمود السيد", "pass": "5Nj4rY5!"}, {"code": "474964290", "name": "سلمى عمرو الشربيني احمد المتولى", "pass": "V!PhHay7"}, {"code": "474964324", "name": "سلمى فوزي عباس محمد عباس", "pass": "m!PZ3eG9"}, {"code": "471953676", "name": "سلمى ماجد عادل حلمى عبد المعطى ابراهیم", "pass": "M6W_!zwv"}, {"code": "474964361", "name": "سلمی مجدی محمود السيد محمد", "pass": "mnN4_Fw3"}, {"code": "481228265", "name": "سلمي محمود حامد محمد عبده ابو العلا", "pass": "4pTmN6?Z"}, {"code": "471950012", "name": "سليمان فتحی حجازی سلیمان حسین", "pass": "?e6Lby4p"}, {"code": "474963852", "name": "سما احمد صبري احمد الطنطاوى", "pass": "65k!Z9Aj"}, {"code": "473811770", "name": "سما احمد محمد هلال المتولى", "pass": "DEehN5!E"}, {"code": "481437797", "name": "سما أدرى احمد حسن السيد العشماوى", "pass": "8E?JKt7c"}, {"code": "471953863", "name": "سما سامح وجدى ابراهيم عبد الرحمن", "pass": "UKA_z6p?"}, {"code": "474905563", "name": "سما سليمان يوسف أحمد سليمان", "pass": "EeXk_La8"}, {"code": "465076041", "name": "سما عمرو الشربيني احمد المتولى", "pass": "VaD5_Xe3"}, {"code": "475975754", "name": "سما ماجد سعد احمد عطيه", "pass": "X3!9Kxmc"}, {"code": "474964082", "name": "سما محمد احمد صبري عبد المطلب عبد المجيد", "pass": "qFEs2?pk"}, {"code": "473390779", "name": "سما محمد احمد على عبد السلام", "pass": "Fj!eB9JT"}, {"code": "469405620", "name": "سما محمد عبد الله محمد السعيد", "pass": "v8xJB_cA"}, {"code": "475325162", "name": "سماح احمد محمد طلبه الموافى", "pass": "mpqL5Z!P"}, {"code": "469416303", "name": "سماح محمد احمد عبده احمد", "pass": "X6rHca?H"}, {"code": "475573570", "name": "سميه وحيد محمد محمود علی", "pass": "L6_9StGe"}, {"code": "475089184", "name": "سهيله فرج احمد فرج يوسف", "pass": "L!t_m5mQ"}, {"code": "473861314", "name": "سهيله وسيم محمود سامى رمضان علی", "pass": "4_SyxXU!"}, {"code": "474964429", "name": "سوزان نادی احمد عبد الرازق مرزوق", "pass": "_JhK7sP5"}, {"code": "475087906", "name": "سيف عبد الرحيم عبد العليم صبح الموافى", "pass": "_8SzFb47"}, {"code": "473812880", "name": "سيف فتحى محمد السيد على", "pass": "gq?sPtW8"}, {"code": "486093912", "name": "سيف محمد منصور عبد الفتاح ابراهيم", "pass": "!5hVHJ?t"}, {"code": "468848030", "name": "شروق خالد احمد احمد الاسود", "pass": "9X_MAgVM"}, {"code": "475974789", "name": "شمس اسامه على محمد السيد", "pass": "mhkK!F5n"}, {"code": "469405504", "name": "شهد محمد رمزی محمد عبد الرحمن", "pass": "?GyFg7w7"}, {"code": "475975182", "name": "شیرین احمد مصطفى عبد الحميد مصطفى", "pass": "Mv!yswR2"}, {"code": "474964471", "name": "شيماء احمد جمعه احمد مصطفى", "pass": "hx9?j7mT"}, {"code": "474987375", "name": "صبری رمضان محمد عيد ابو العنين", "pass": "ZmWwv_p4"}, {"code": "474987353", "name": "صلاح محمد يسرى شعبان بدوى قنديل", "pass": "_xY8_rst"}, {"code": "474906426", "name": "عائشة ناجي السيد محمد احمد", "pass": "?pE6Cpwy"}, {"code": "485174766", "name": "عائشه ابراهيم عبده السيد عزالدين المكاوى", "pass": "22t!ZLYc"}, {"code": "475376796", "name": "عبد الرحمن ربيع السعيد حسن قوره", "pass": "_WEJ6pje"}, {"code": "469965216", "name": "عبد الرحمن عمرو محمود محمد محمود السعداوي", "pass": "4!RJZhkX"}, {"code": "474987396", "name": "عبد الرحمن محمد عبد المنعم محمد خاطر", "pass": "6dk_kwxN"}, {"code": "469965199", "name": "عبد العظيم محمد عبد العظيم محمد هاشم الجويحي", "pass": "X8L_HT3m"}, {"code": "475376813", "name": "عبد الله ربيع السعيد حسن قوره", "pass": "9_SZuMFS"}, {"code": "474987416", "name": "عبد الله سعد فخرى عبده محمد صبح", "pass": "?8!fmLDx"}, {"code": "473465635", "name": "عبد الله محمود ابراهيم محمد ابراهيم", "pass": "!qhepC8b"}, {"code": "474962455", "name": "عبد الوهاب احمد عبد الوهاب حسن عبد الوهاب", "pass": "yVC8!WEe"}, {"code": "473587232", "name": "عبد الرحمن سامح عيد محمد بدر ابراهیم", "pass": "Xt8hmY_N"}, {"code": "470284224", "name": "عبد الرحمن محمد مصطفی کامل بدر", "pass": "fga_qNW9"}, {"code": "475319506", "name": "عبدالله احمد شعبان عزمی حسون", "pass": "F9!jQD6v"}, {"code": "475088738", "name": "عزه مجدى السيد زكى السيد بدران", "pass": "wLe_cj2t"}, {"code": "476225516", "name": "عصام ياسر ابوالحسن السيد السيد", "pass": "nK?A_8kC"}, {"code": "475087483", "name": "علاء حمدى عبد المجيد الموجى عرفات", "pass": "k9PNm9_N"}, {"code": "474987596", "name": "علاء وليد السيد عبد الفتاح على", "pass": "w?6rLLUK"}, {"code": "473774091", "name": "علی احمد على احمد عبده", "pass": "6qvA?GZf"}, {"code": "474987466", "name": "على اشرف على عوض محمد", "pass": "TL?nFNy7"}, {"code": "473585327", "name": "على محمد السيد عبد المقصود غازي", "pass": "5hpyHT!A"}, {"code": "475266474", "name": "على محمد على السيد على", "pass": "C5tZf84?"}, {"code": "474987510", "name": "على محمود علی محمود عبد المنعم", "pass": "R4Ph_Ae3"}, {"code": "470284229", "name": "عمار احمد ثروت محمد على", "pass": "H_GZQ2cV"}, {"code": "475074245", "name": "عمار رضا زكريا على محمد", "pass": "5?gNEt4B"}, {"code": "471948204", "name": "عمار محمد السيد محمد سالم", "pass": "H?a!L6?h"}, {"code": "508071658", "name": "عمار محمود سليمان محمد احمد البلاسي", "pass": "m!QWw6Rg"}, {"code": "475075468", "name": "عمر ابراهيم المتولى عبد العال محمد", "pass": "Y3_R_kGj"}, {"code": "474987635", "name": "عمر عماد محمد المتولي محمد", "pass": "MWeL?vv5"}, {"code": "471949610", "name": "عمر محمد عبده حبيب ابراهيم", "pass": "w7cytBP?"}, {"code": "471948763", "name": "عمر مختار صالح احمد عوض رزق", "pass": "2ZNc_St5"}, {"code": "474987665", "name": "عمرو احمد مصطفى محمد مصطفى", "pass": "BJcr?3x?"}, {"code": "482165101", "name": "عمرو محمد السيد محمد السعيد", "pass": "YX56M_yH"}, {"code": "475085342", "name": "عمرو محمد محمد السيد على", "pass": "?ChC5WDS"}, {"code": "475975097", "name": "غادة محمد احمد عوض احمد مندور", "pass": "DM?s6?8b"}, {"code": "474987700", "name": "فارس ابراهيم رجب عبده ابراهيم الباز", "pass": "5!kw9H2x"}, {"code": "469416516", "name": "فارس عبد العزيز مختار عباس عبد العزيز", "pass": "cEs?Zb8j"}, {"code": "469965477", "name": "فاطمة الزهراء صلاح محمد عبد العال مجاهد", "pass": "A!HQf7Er"}, {"code": "469416427", "name": "فاطمة وائل محمد خاطر السيد العشماوي", "pass": "VFLvM_r7"}, {"code": "475319394", "name": "فاطمه خالد ابراهيم الشناوى عبده الحداد", "pass": "8PgE9N?5"}, {"code": "471953633", "name": "فاطمه عبد العاطى السيد عطيه محمود", "pass": "NDaY5!2R"}, {"code": "475974579", "name": "فاطمه مبروك أحمد برهام محمد", "pass": "!deDJq5Q"}, {"code": "471952609", "name": "فاطمه وليد محمد عبده هلال", "pass": "3tGxH_by"}, {"code": "475489716", "name": "فراس محمد احمد فتحى عبدالله على", "pass": "7sUFU?rX"}, {"code": "469416489", "name": "فراس مصطفى يحى خليفه السيد", "pass": "gxD6B!eM"}, {"code": "471952573", "name": "فرح احمد الرفاعي احمد خليل", "pass": "D?FfJYn7"}, {"code": "468848229", "name": "فرح رضا عادل عزالدین محمود", "pass": "8T9N3tr?"}, {"code": "475240212", "name": "فرح صالح شوقي صالح الزغبي", "pass": "S!Cw3?zs"}, {"code": "475353779", "name": "فرحه الشناوى عوض ابراهيم عبده", "pass": "Vh34?s8V"}, {"code": "469416531", "name": "كريم ابراهيم اسماعيل ابراهيم اسماعيل", "pass": "xL!fD5FX"}, {"code": "471949725", "name": "كريم احمد مصباح محمد سلیمان احمد", "pass": "5tfxw_Sg"}, {"code": "471950117", "name": "كريم سمير عبد العظيم محمود المتولى", "pass": "sKsp2?2D"}, {"code": "474987770", "name": "كريم محمد رجب عبده محمد", "pass": "!4JaF?2F"}, {"code": "474889519", "name": "كريم محمود عبد الرؤوف محمد حجازی", "pass": "6fPK2?hb"}, {"code": "474987736", "name": "كريم وائل محمد عبده حامد", "pass": "T3v7?68R"}, {"code": "468848333", "name": "كريمه عادل أنور المندى السعيد", "pass": "_eX5Redb"}, {"code": "482466636", "name": "ليلى احمد عزت عبد السلام السيد", "pass": "_B86_kxL"}, {"code": "475978508", "name": "ماجد عصام مندور عوض احمد", "pass": "SW!enr64"}, {"code": "478369301", "name": "محمد ابراهيم فاضل حسنين الاعصر", "pass": "7C?dUy7K"}, {"code": "471949050", "name": "محمد ابراهيم مصطفى صقر ابراهيم", "pass": "Esyxu3D?"}, {"code": "475087580", "name": "محمد احمد محمد صلاح محمد", "pass": "ccFrX2k!"}, {"code": "474837191", "name": "محمد أحمد محمد محمود عبد الحميد السيد", "pass": "qg!6?u9G"}, {"code": "475993695", "name": "محمد اسلام عماد الدين عبد الله احمد", "pass": "G3?s5eK!"}, {"code": "468035709", "name": "محمد اشرف محمد محمود احمد عطية", "pass": "?Z2jcxG5"}, {"code": "473586205", "name": "محمد اشرف محمود عبد العال محمد", "pass": "pCJzM?6q"}, {"code": "475248958", "name": "محمد السعيد احمد محمد مقبل", "pass": "P4X_gvrJ"}, {"code": "469965152", "name": "محمد الشربينى المتولى احمد المتولى", "pass": "m?fm_8PX"}, {"code": "474637757", "name": "محمد ایمن شکرى محمد السيد", "pass": "mA5bdh_E"}, {"code": "474987892", "name": "محمد باسم سامي عوض فرحات", "pass": "p?xCU8cg"}, {"code": "475088143", "name": "محمد باسم محمد فرج عبد السميع", "pass": "6zL2sz?S"}, {"code": "471949949", "name": "محمد حمدى عبد الفتاح على رزق", "pass": "BPcyT8_4"}, {"code": "477789213", "name": "محمد حمدی عرفه محمود محمد رجب", "pass": "f??h38CH"}, {"code": "473812896", "name": "محمد رضا جاد محمد سلیمان", "pass": "VdMrRm_2"}, {"code": "475084957", "name": "محمد سالم صبری احمد سالم", "pass": "3NW!Q6Hg"}, {"code": "471948918", "name": "محمد سامح حمدينو محمد ابراهيم الباز", "pass": "5?dYc_Qf"}, {"code": "471948821", "name": "محمد سامى جمال محمد عطيه حجازی", "pass": "V9CNgk!P"}, {"code": "469416512", "name": "محمد سعد السيد محمد على الزهيري", "pass": "KnqS!2HL"}, {"code": "475074630", "name": "محمد شوقى السيد عطيه محمد", "pass": "8RGCk!ZT"}, {"code": "475367239", "name": "محمد صبح عبد العليم صبح الموافى", "pass": "5NZmEc_P"}, {"code": "470284245", "name": "محمد عاطف صبرى السيد عز الرجال", "pass": "L?BvMV7m"}, {"code": "469416123", "name": "محمد عبد الحميد محمد عبد الحميد السيد سليمان", "pass": "2W!n95HS"}, {"code": "475368169", "name": "محمد عبد اللطيف فوزي ابراهيم عبد اللطيف", "pass": "yUf4_XFc"}, {"code": "473808902", "name": "محمد عمرو محمد احمد حجازی", "pass": "bXD2Tty!"}, {"code": "469965126", "name": "محمد فتحى عبد الباقي الدسوقي وفا", "pass": "y3Q!E!qU"}, {"code": "475092020", "name": "محمد نبيل عيد الشحات على المرشدى", "pass": "FN7ncBw_"}, {"code": "473729936", "name": "محمد نصر عمرو مریشد سليمان", "pass": "8qFs?j9G"}, {"code": "471949541", "name": "محمد هانی شاکر حجاج محمد", "pass": "Qv3?aggW"}, {"code": "468299086", "name": "محمد هانی فرید عبد العزيز المرسى", "pass": "XUxDe?v3"}, {"code": "474988032", "name": "محمد هانی محمد عوض حسين جبر", "pass": "_DPvxbT9"}, {"code": "471949268", "name": "محمد وائل حجازى عبد اللطيف احمد", "pass": "tN7F!Nf_"}, {"code": "471950673", "name": "محمود ابراهيم محمود رافت محمد عطيه حجازی", "pass": "C4S6y_w?"}, {"code": "471950158", "name": "محمود أسامة على الشحات على", "pass": "2ryB?Sk_"}, {"code": "475566852", "name": "محمود اسامه السيد محمد سعد", "pass": "N5_XYvEq"}, {"code": "473813309", "name": "محمود السيد عبد الجواد السيد عبد الجواد", "pass": "RfaM!n97"}, {"code": "475978574", "name": "محمود السيد محمد على بدوى", "pass": "7_3S?D_q"}, {"code": "470284258", "name": "محمود توكل عبد اللطيف احمد ابراهيم", "pass": "Kf?6YJKV"}, {"code": "475087820", "name": "محمود عبد العال ابراهيم عبد العال مجاهد", "pass": "DZw8!X5u"}, {"code": "473586072", "name": "محمود عماد محمد عبد المنعم عز الرجال", "pass": "C9WXr!5h"}, {"code": "473377294", "name": "محمود محمد احمد على عبد السلام", "pass": "2keR9b?Q"}, {"code": "481436712", "name": "محمود محمد اسماعيل عبد الشافي ابراهيم محمد البغدادي", "pass": "Z?Pcr3PN"}, {"code": "464625558", "name": "محمود محمد رمضان محمود خليل", "pass": "b_F6?dTk"}, {"code": "470284262", "name": "محمود محمد عادل جاد على حجازی", "pass": "u!2jhJzh"}, {"code": "473585836", "name": "محمود محمد منصور محمود عزالدین", "pass": "G4hRdp_b"}, {"code": "476222710", "name": "محمود نجاح حامد السيد محمد عبد العاطي", "pass": "WbL5b_pt"}, {"code": "468038308", "name": "مروان زكريا محمد عبده جمعه", "pass": "VXLBxt3!"}, {"code": "475372646", "name": "مریم احمد محمد السيد محمد", "pass": "jQCk!VH2"}, {"code": "475974185", "name": "مريم أشرف انور السيد خاطر", "pass": "85aEzGb?"}, {"code": "473095613", "name": "مریم جمعه جمعه رمضان جمعه", "pass": "3YjWdu2?"}, {"code": "474964770", "name": "مريم خالد السيد محمد على", "pass": "!8mjYqPG"}, {"code": "471953102", "name": "مریم رجب محمد فاضل بدران", "pass": "7sSgZm7?"}, {"code": "477703700", "name": "مریم رضا سامی احمد على العزب", "pass": "tDFgp!M2"}, {"code": "471952956", "name": "مریم صبري محمد عطية المتولى", "pass": "!L7r4cdW"}, {"code": "475088378", "name": "مريم صلاح نبيل عبده عرابي", "pass": "qTk7A?Ks"}, {"code": "475089911", "name": "مريم فتحی محمد عاشور", "pass": "AUaaz?9C"}, {"code": "471954025", "name": "مریم ماجد احمد احمد المتولى", "pass": "_yKUn93k"}, {"code": "469416172", "name": "مریم محمد احمد عبده محمد", "pass": "cj8jQK?5"}, {"code": "475353389", "name": "مریم محمد حلمى السيد محمد", "pass": "RE8WKk!D"}, {"code": "473378543", "name": "مریم محمد مدحت محمد خليل الباز", "pass": "p_49h8CD"}, {"code": "474964601", "name": "مريم محمود الحسيني منصور ابراهيم", "pass": "m!N5v9yU"}, {"code": "464817283", "name": "مريم مصطفى علي محمد احمد", "pass": "9M28gtE?"}, {"code": "471955177", "name": "مريم ناجي محمد عبد المطلب عبدالله", "pass": "F_DQ2Qze"}, {"code": "474988201", "name": "مصطفى احمد مصطفى عبد الهادي", "pass": "H_R9cW9B"}, {"code": "481436147", "name": "مصطفى أدرى احمد حسن السيد العشماوي", "pass": "tRs3MNw?"}, {"code": "473549447", "name": "مصطفى خالد محمود مصطفى السيد", "pass": "MxQ7c6?v"}, {"code": "469965081", "name": "مصطفى وائل مصطفى خليفة السيد", "pass": "Vjc4c_Yu"}, {"code": "471949485", "name": "مصطفى ياسين محمود العزازي مصطفى", "pass": "8GP_Yd8u"}, {"code": "475787843", "name": "معاذ اسامة محمود محمد شعبان", "pass": "sUD9m??8"}, {"code": "473585509", "name": "معاذ محمد ماهر حسنین محمدین", "pass": "BSZfft!3"}, {"code": "470284265", "name": "معاذ وليد محمود سامى رمضان علی", "pass": "?HqV2MkD"}, {"code": "474787151", "name": "معتز المتولي فتح الله احمد متولي", "pass": "5?2hRxsS"}, {"code": "473375395", "name": "معتز فهمی محمود محمد محمود السعداوي", "pass": "!J8VQync"}, {"code": "474988130", "name": "معتز محمد صبرى محمد الرومي المتولى", "pass": "xuzJ_BZ8"}, {"code": "475974638", "name": "ملك أشرف انور السيد خاطر", "pass": "?wkmN8vd"}, {"code": "474964803", "name": "ملك تامر جاد احمد الرومي", "pass": "RC36rp?b"}, {"code": "474964905", "name": "ملك حامد عبد الرحمن فاضل احمد", "pass": "5tbTg5?P"}, {"code": "469405977", "name": "ملك حامد محمد عبد الباقي الدسوقي", "pass": "h7CRs!!U"}, {"code": "474964955", "name": "ملك خالد محمد خاطر السيد", "pass": "F2D_Nd4b"}, {"code": "474965015", "name": "ملك صلاح فوزي البكري عطيه", "pass": "dDrD7f?5"}, {"code": "473465724", "name": "ملك عمرو منصور عبد المنعم محمد", "pass": "ayE9Kq!n"}, {"code": "474965039", "name": "ملك عيد محمد عبد المنعم الحلوجي", "pass": "jaQ!GDd7"}, {"code": "470284345", "name": "ملك محمد احمد محمود عزالدین", "pass": "WtxE_H94"}, {"code": "471955222", "name": "ملك محمد على عطية المتولى", "pass": "M!Hc!Cr7"}, {"code": "471955524", "name": "ملك محمد فوزى عبد العزيز المهدى", "pass": "4yMqC?q2"}, {"code": "475353201", "name": "ملك هاني احمد السعيد محمد", "pass": "zh9!c5EM"}, {"code": "474965074", "name": "ملك وائل احمد سليمان يوسف", "pass": "9uN9?qeT"}, {"code": "475368245", "name": "ملك وحيد السيد عبده يوسف", "pass": "?P5R!gV_"}, {"code": "475131005", "name": "ملك وحيد وحيد محمد مصطفى", "pass": "VXR3cB6_"}, {"code": "468039318", "name": "منال سامح ابراهيم عبد العال المتولى", "pass": "bfM_2WzF"}, {"code": "475274139", "name": "منه احمد حامد عبد العال محمد عبد العال", "pass": "vHL_?9Ey"}, {"code": "471953725", "name": "منه اشرف رمضان سليمان الهجرسي", "pass": "FZ8d_V7B"}, {"code": "471952829", "name": "منه الله احمد عزت امین محمد احمد", "pass": "3Rr_PafG"}, {"code": "475089520", "name": "منه الله ايهاب انتصار محمد محمد على", "pass": "6aPkx_HN"}, {"code": "480737682", "name": "منه الله رمضان عيد محمد احمد", "pass": "H8s!_ZyA"}, {"code": "471955478", "name": "منه الله عادل احمد ابراهيم حسنين", "pass": "!5CZsesF"}, {"code": "471955076", "name": "منه جمال محمود محمد احمد", "pass": "Zv49?mB3"}, {"code": "473812718", "name": "منه محمد السيد رجب عبد المقصود", "pass": "v?TJsb4b"}, {"code": "469416384", "name": "منه محمد السيد عطيه عبد العال", "pass": "PyQ!D3gZ"}, {"code": "474964719", "name": "منه محمود سليمان عبده سليمان", "pass": "KwVh_V5!"}, {"code": "471953355", "name": "منه نصر عبد العظيم الراجحي المتولى", "pass": "YDJE?YK7"}, {"code": "474988233", "name": "مهند محمد رمضان عوضين عبد الرحمن", "pass": "2dnGyR_Q"}, {"code": "470284283", "name": "مهند محمود شعبان عبد الخالق المتولى", "pass": "ZTpBw3?_"}, {"code": "475089614", "name": "میار احمد محی الدین رزق السيد ناصف", "pass": "3P?EVmPn"}, {"code": "474965115", "name": "میار احمد مصطفى عطيه محمود", "pass": "Vqf8??mN"}, {"code": "475973859", "name": "میرنا محمد محمود أبوزيد مصطفى", "pass": "9r?VscdZ"}, {"code": "471952785", "name": "ناهد محمد عبد الوهاب احمد عبد الوهاب", "pass": "Mg?4MMbJ"}, {"code": "475353103", "name": "نبيل السيد نبيل على حسن", "pass": "v?wTq9Rg"}, {"code": "474988759", "name": "نبيل هيثم نبيل عباس رزق", "pass": "2Q5?axpA"}, {"code": "478352301", "name": "نجلاء محمد ناجح جمعه عبد الخالق", "pass": "7s5dP5?7"}, {"code": "475509251", "name": "ندى السيد الفرغلى حسن المرسى", "pass": "Q!_Ga6dP"}, {"code": "469405851", "name": "ندى سعد الدين محمد عبد الغفار السيد", "pass": "sJfpQ42?"}, {"code": "469416196", "name": "ندى شريف دياب عبد الحليم سيد احمد", "pass": "m_yqZM6a"}, {"code": "474965275", "name": "نغم السيد السيد محمد احمد", "pass": "G?b7aS3j"}, {"code": "475076183", "name": "نغم السيد ناجي محمد عبد الحي", "pass": "72muJ!wq"}, {"code": "474965325", "name": "نور الله جاد محمد جاد محمد حبشی", "pass": "?b9Fg3rZ"}, {"code": "475089280", "name": "نور خالد السيد الشربيني محمد", "pass": "Mxtr48F?"}, {"code": "468848113", "name": "نور عيد عزمي عيد السيد على", "pass": "efp4EDA_"}, {"code": "475089706", "name": "نوران سعود عبد العليم صبح الموافى", "pass": "X_P2VHj!"}, {"code": "475088598", "name": "نورهان شریف محمد عبده عبد المقصود", "pass": "Smu?jj66"}, {"code": "470048724", "name": "هاجر أحمد سعد اسماعيل الطنطاوى", "pass": "!dWpD99y"}, {"code": "475353310", "name": "هاجر ايهاب ابو حلاوه محمد السيد العسكري", "pass": "HJKRL5M!"}, {"code": "497504595", "name": "هاجر محمود الشبراوى محمد", "pass": "xen_8N37"}, {"code": "475368376", "name": "هایدی حسن محمد حسن محمد", "pass": "8Ze?LGt4"}, {"code": "470284350", "name": "هبه السعيد رمضان ابراهيم سليمان", "pass": "u7xW?bZ_"}, {"code": "474965233", "name": "هبه محمد فخرى عبده محمد صبح", "pass": "7DjE!xQA"}, {"code": "480568533", "name": "هدى محمود عبد القادر عبد الرحيم محمد", "pass": "u7?D7gsJ"}, {"code": "475076207", "name": "هنا احمد السعيد السيد احمد السيد خاطر", "pass": "?J22wQ8g"}, {"code": "474965173", "name": "هنا احمد محمد السيد احمد", "pass": "Ue5PK4Y!"}, {"code": "471952913", "name": "هنا صلاح حامد عبد اللطيف محمد ابراهيم", "pass": "qZ47QV!w"}, {"code": "469415914", "name": "هنا عادل محمد ابراهيم حسن احمد", "pass": "Y!B8_qfR"}, {"code": "486094210", "name": "هنا عادل مصطفى على مصطفى", "pass": "J6K?yn_N"}, {"code": "475353705", "name": "هنا محمد صلاح عبد الرؤوف عبد الجواد", "pass": "?n2?4ccT"}, {"code": "504883367", "name": "هناء عابد محمد ابراهيم احمد", "pass": "3dJ_uy!t"}, {"code": "475567041", "name": "هند ابراهيم نبيل عبده محمد صبح", "pass": "4!gEYChM"}, {"code": "471952743", "name": "هند محمد عطوه عبد العظيم عوض", "pass": "?p8YbMGk"}, {"code": "471949330", "name": "هيثم محمد صبرى عبده يوسف محمد", "pass": "UvX_A8fS"}, {"code": "476201373", "name": "وائل تامر محمد مصباح ابراهيم", "pass": "F9sj3z8?"}, {"code": "475974840", "name": "وصال فايز محمد محمد العطى", "pass": "Asb3nw4_"}, {"code": "474965360", "name": "ولاء محمد علاء الدین علی احمد", "pass": "zFjG8nL_"}, {"code": "475993760", "name": "وليد محمود سعد احمد عطيه", "pass": "Db!N!46G"}, {"code": "475367094", "name": "یا را نبيل ابراهيم عبده عبد المقصود", "pass": "e3hJ_79g"}, {"code": "475088308", "name": "ياسمين محمد السيد عبد العال ابراهيم", "pass": "YMff?9fr"}, {"code": "471953828", "name": "ياسمين محمود عباس محمد على", "pass": "4cD5p!9T"}, {"code": "469965053", "name": "يا من السيد حامد ابراهيم عبد الواحد", "pass": "9Y!q7YeV"}, {"code": "471953006", "name": "يمنى محمد جمعه حسنين محمد", "pass": "3eW4?NaP"}, {"code": "475560012", "name": "يمنى مصطفى حسن احمد الحنفي", "pass": "_Aj2jsV!"}, {"code": "473095766", "name": "يوسف السيد السيد احمد على", "pass": "44!9hPZ6"}, {"code": "474962371", "name": "يوسف السيد عبد العزيز ابو الوفا السيد", "pass": "4?undsSX"}, {"code": "475086177", "name": "یوسف انور محمد انور محمد", "pass": "?5XagFtU"}, {"code": "474755437", "name": "يوسف رائد عادل سعد العزازي", "pass": "BdTe?p77"}, {"code": "475318699", "name": "يوسف عمرو محمد محمد محمد شمس", "pass": "Pz2LXnM?"}, {"code": "475120322", "name": "يوسف محمد السيد عبد العظيم السيد", "pass": "2YEb?Zbd"}, {"code": "473095830", "name": "يوسف محمد حمدى السعيد عبد العال", "pass": "9AB78ax?"}, {"code": "474853601", "name": "يوسف محمد سرور محمد محمد السيد", "pass": "y_TGBG9J"}, {"code": "473811737", "name": "يوسف محمد عاطف عوض سلامه", "pass": "Btnu?_r5"}, {"code": "470284294", "name": "يوسف محمد عبد الحليم ابراهيم بدوى", "pass": "dEHW!R9b"}, {"code": "475086328", "name": "يوسف محمد عبد الغني ابراهيم محمد", "pass": "XVL?u43v"}, {"code": "475993965", "name": "يوسف محمد عيد السيد احمد", "pass": "DZjWek_2"}, {"code": "482855161", "name": "يوسف محمد فؤاد درغام محمد الطبجي", "pass": "95c!xuAC"}, {"code": "468298974", "name": "يوسف محمود بدوى السيد بدوى", "pass": "8hQ!h4_3"}, {"code": "478534477", "name": "يوسف محمود ثروت محمد على", "pass": "E?sm2VNY"}, {"code": "473860506", "name": "يوسف هلال السيد عبده هلال", "pass": "V9kd?x?Q"}, {"code": "473809202", "name": "يوسف ياسر محمد السعيد العوضى", "pass": "U4Bw3_QK"}];
+
+    function findStudent() {
+        const query = document.getElementById('searchInput').value.trim().toLowerCase();
+        const resultBox = document.getElementById('resultBox');
+        const errorBox = document.getElementById('errorBox');
+
+        if (!query) {
+            alert('يرجى إدخال كود الطالب أو الاسم أولاً!');
+            return;
+        }
+
+        const student = studentsDatabase.find(s => s.code === query || s.name.toLowerCase().includes(query));
+
+        if (student) {
+            document.getElementById('resName').innerText = student.name;
+            document.getElementById('resCode').innerText = student.code;
+            document.getElementById('resPass').innerText = student.pass;
+            
+            resultBox.style.display = 'block';
+            errorBox.style.display = 'none';
+        } else {
+            resultBox.style.display = 'none';
+            errorBox.style.display = 'block';
+        }
+    }
+
+    document.getElementById('searchInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            findStudent();
+        }
+    });
+</script>
+
+</body>
+</html>
+         findStudent();
+        }
+    });
+</script>
+
+</body>
+</html>
